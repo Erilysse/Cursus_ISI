@@ -2,11 +2,12 @@
 -- Création de la  table `cursus`
 
 CREATE TABLE IF NOT EXISTS `cursus` (
-  `numero_etudiant` int(20) NOT NULL,
-  `label` varchar(100) NOT NULL,
-  `ListUV` array NOT NULL,
-  PRIMARY KEY (`numero_etudiant`)
-)
+  `id` int(20) NOT NULL AUTO_INCREMENT,
+  `id_etu` int(20) NOT NULL,
+  `ListUV` varchar(300) NOT NULL,
+  PRIMARY KEY (`id`),
+  CONSTRAINT CUR_FK FOREIGN KEY(id_etu) REFERENCES etudiant(num_etudiant)
+) 
 
 --------------------------------------------------------
 
@@ -24,7 +25,8 @@ CREATE TABLE IF NOT EXISTS `elt_de_formation` (
   `inprofil` tinyint(1) NOT NULL,
   `credit` int(11) NOT NULL,
   `resultat` varchar(50) NOT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  CONSTRAINT ELT_FK FOREIGN KEY(id_cursus) REFERENCES cursus(id)
 ) 
 
 --------------------------------------------------------
@@ -66,6 +68,7 @@ CREATE TABLE IF NOT EXISTS `regles` (
   `affectation` varchar(100) NOT NULL,
   `credit` int(20) NOT NULL,
   PRIMARY KEY (`id`)
+  CONSTRAINT REG_FK FOREIGN KEY(id_reglement) REFERENCES reglement(id)
 ) 
 
 -- Initialisation des éléments des réglements

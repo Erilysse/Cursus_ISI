@@ -7,7 +7,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
-    <form method="POST" id='FormAjoutCursus1' name='FormAjoutCursus' action="Ajout_Cursus_2.php">
+    <form method="POST" id='FormAjoutCursus1' name='FormAjoutCursus1' action="Ajout_Cursus_2.php">
     <table>
             <fieldset legend="A propos de votre cursus">
                 <div>Numéro de l'étudiant :<input type='number' name='numetu' size='10' maxlength='10' value='' /></div>
