@@ -1,11 +1,10 @@
-// A $( document ).ready() block.
+/* A $( document ).ready() block.
 $( document ).ready(function() {
 $("#AjoutElement").on("click",function() {
     ajouterElement();
-});
+});*/
 
 function ajouterElement() {
-    console.log("PASBIEN");
  $("#FormAjoutCursus").append( `    UV -
                      <div>N° du Semestre :<input type='text' name='numsem' size='10' maxlength='10' value='' /></div>
                     <div>Label du Semestre :<input type='text' name='labelsem' size='10' maxlength='10' value='' /></div>
