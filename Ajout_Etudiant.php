@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html>
 <head>
         <title>Ajouter un étudiant</title>
@@ -14,8 +13,8 @@
                 <div><h>Prénom :</h> <input type='text' name='prenom' size='10' maxlength='10' value='' /></div>
                 <div><h>Numéro d'étudiant :</h><input type='number' name='numetu' size='10' maxlength='10' value='' /></div>
                 <div><h>Admission :</h>
-            <input type="radio" name='admission' value='TC'/><u>Tronc Commun</u>
-            <input type="radio" name='admission' value='BR'/><u>Branche</u>
+            <input type='radio' name='admission' value='TC'/><u>Tronc Commun</u>
+            <input type='radio' name='admission' value='BR'/><u>Branche</u>
                 <div><h>Filière:</h><select name='filiere'>
                     <option>MPL</option>
                     <option>MSI</option>
@@ -27,5 +26,4 @@
         </form>
     </table>
 </body>
-</html>
-    
+</html>    

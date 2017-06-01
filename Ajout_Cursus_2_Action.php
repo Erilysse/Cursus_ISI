@@ -1,4 +1,6 @@
 <?php
+$Etu_Numero = $_POST['numetu'];
+
 $UV_Semestre_Numero = $_POST['numsem'];
 $UV_Semestre_Label = $_POST['labelsem'];
 $UV_Categorie = $_POST['categorie'];
