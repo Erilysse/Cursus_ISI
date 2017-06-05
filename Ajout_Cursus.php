@@ -12,8 +12,8 @@ include('BibliothequePHP.php');
 <body>
     <script type="text/JavaScript" src="AjoutElement.js"></script>
     <table>
-         <div>Numéro de l'étudiant :<input type='number' name='numetu' size='10' maxlength='10' value='' /></div>    
-        <form method="POST" id='FormAjoutCursus2' name='FormAjoutCursus2' action="Ajout_Cursus_2_Action.php">
+        <form method="POST" id='FormAjoutCursus' name='FormAjoutCursus' action="Ajout_Cursus_Action.php">
+    <div id='NumEtu'>Numéro de l'étudiant: <input type='number' name='numetu' size='10' maxlength='10' value='' /></div>    
     <div id='ListeUV'>            
     <div id='UV1'>
     <fieldset>
