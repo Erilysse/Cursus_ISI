@@ -10,7 +10,7 @@ include('BibliothequePHP.php');
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
-    <script type="text/JavaScript" src="AjoutElement.js"></script>
+    <script type="text/JavaScript" src="include\javascript\AjoutElement.js"></script>
     <table>
         <form method="POST" id='FormAjoutCursus' name='FormAjoutCursus' action="Ajout_Cursus_Action.php">
     <div id='NumEtu'>Numéro de l'étudiant: <input type='number' name='numetu' size='10' maxlength='10' value='' /></div>    

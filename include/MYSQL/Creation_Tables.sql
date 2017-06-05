@@ -1,3 +1,5 @@
+-- La base s'appelle lo07
+
 CREATE TABLE IF NOT EXISTS `etudiant` (
   `num_etudiant` int(20) NOT NULL,
   `nom` varchar(100) NOT NULL,

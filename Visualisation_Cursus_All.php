@@ -1,27 +1,5 @@
 <?php
-// Récupère le numéro de l'étudiant afin d'avoir accès à son cursus
 
-$numero_etudiant = $_POST['numetu'];
-
-$request = "select ListUV, id_etu as etudiant from cursus where id_etu = $numero_etudiant";
-$answer = $database->query($request);
-/*while ($data = $answer->fetch()) {
-    array_push(, [$data[""], $data[""], $data[""], $data[""], $data[""]]);
-}
-
-function affichageCursus($num_etudiant) {
-    foreach ($l as $key => $UV) {
-        echo "<tr>";
-        foreach ($UV as $value) {
-            echo "<th>" . $value . "</th>";
-        }
-        echo "<th></th>";
-        echo "</tr>";
-    }
-}
- * 
- * PAS FINI
- */
 ?>
 
 <html>

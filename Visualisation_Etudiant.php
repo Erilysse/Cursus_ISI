@@ -1,9 +1,12 @@
 <?php
 // Créer la liste d'étudiant avec les données de la table etudiant de la base de données 
+include('\include\MYSQL\config.php');
+include('\include\MYSQL\bibli_bdd.php');
 
 $list_etudiant = [];
 $request = "select * from etudiant";
-$answer = $database->query($request);
+$bd  = connect_bdd($serveur,$utilisateur,$mot_de_passe);
+$answer = $bd->query($request);
 while ($data = $answer->fetch()) {
     array_push($list_etudiant, [$data["numetu"], $data["nom"], $data["prenom"], $data["admission"], $data["filiere"]]);
 }
@@ -15,7 +18,9 @@ function affichageEtudiants($list_etudiant) {
             echo "<th>" . $value . "</th>";
         }
         // Il manque le lien vers son cursus utiliser un lien avec le numero etudiant
-        echo "<th></th>";
+        echo "<th><form method='POST' name='Cursus' action='Visualisation_Cursus_Etudiant.php'>
+            <hidden
+  <a href='Visualisation_Cursus_Etudiant.php'><input type='submit' value='Voir le cursus' /></a></th>";
         echo "</tr>";
     }
 }
