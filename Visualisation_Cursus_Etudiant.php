@@ -1,4 +1,35 @@
-<!DOCTYPE html>
+<?php
+include('\include\MYSQL\config.php');
+include('\include\MYSQL\bibli_bdd.php');
+$list_UV = [];
+$bd  = connect_bdd($serveur,$utilisateur,$mot_de_passe);
+
+if ($bd) {
+        echo "Impossible de se connecter à la base de données";
+}
+else {
+    $etu_numero = $_POST['numetu'];
+    $reg_insert1 = "SELECT id FROM cursus WHERE id_etu = $etu_numero";
+    if (isset($etu_numero)) {
+        $answer = $bd->query($request1);
+        $id_cursus = $answer->fetch();
+        $request2 = "SELECT * FROM elt_de_formation WHERE id_cursus = $id_cursus";
+        $answer2 = $bd->query($request2);
+        while ($data = $answer2->fetch()) {
+            array_push($list_UV, [$data['sem_seq'],$data['sem_label'],$data['sigle'],$data['categorie'],$data['inutt'],$data['inprofil'],$data['credit'],$data['resultat']]) ;
+        }
+    }
+}
+function affichageUV($list_UV) {
+foreach ($list_UV as $key => $UV) {
+    echo "<tr>";
+    foreach ($UV as $value) {
+        echo "<th>" . $value . "</th>";
+    }
+    echo "</tr>";
+}
+}
+?>
 <html>
 <head>
         <title>Visualiser un cursus</title>
@@ -13,66 +44,22 @@
                 <div><a href="Visualisation_Cursus.php"><input type='submit' value='Envoyer' /></a></div>
                 <div><input type='reset' value='Annuler' /></div
     </form>
-    <table>
-        <?php
-        $id_etu = $_POST[numetu];
-        if (isset($id_etu)) {
-            echo
-        }
-// Récupère le numéro de l'étudiant afin d'avoir accès à son cursus
-
-$numero_etudiant = $_POST['numetu'];
-
-$request = "select ListUV, id_etu as etudiant from cursus where id_etu = $numero_etudiant";
-$answer = $database->query($request);
-/*while ($data = $answer->fetch()) {
-    array_push(, [$data[""], $data[""], $data[""], $data[""], $data[""]]);
-}
-
-function affichageCursus($num_etudiant) {
-    foreach ($l as $key => $UV) {
-        echo "<tr>";
-        foreach ($UV as $value) {
-            echo "<th>" . $value . "</th>";
-        }
-        echo "<th></th>";
-        echo "</tr>";
-    }
-}
- * 
- * PAS FINI
- */        
-// Récupération de la bibliothèque BDD et de la config pour se connecter à la bdd
-
-include ('config.php');
-include ('bibli_bdd.php');
-$bd  = connect_bdd($serveur,$utilisateur,$mot_de_passe);
-if ($bd) {
-        echo "Impossible de se connecter à la base de données";
-}
-else {
-    // Création du cursus d'après le numéro étu
-    $reg_insert1="insert into cursus values (NULL,".$Etu_Numero.")";
-    // Récupération de l'id du cursus afin de créer les éléments de formation qui le composent
-    $id_cursus=mysql_insert_id();
-    if (!(execute_requete($bd,$reg_insert1))) {
-        echo "ERREUR: Le cursus n'a pas été enregistré";
-    }
-    else{
-        echo "Le cursus a été enregistré";
-    }
-    // Boucle pour créer les éléments de formation dans la table
-    for ($i = 0; $i <= count($UV_Sigle); $i++) {
-        $reg_insert2="SELECT * from cursus"
-        if (!(execute_requete($bd,$reg_insert2))) {
-            echo "ERREUR: L'element de formation n'a été enregistré";
-        }
-        else{
-            echo "L'element a été enregistré";
-        }
-    }
-}
-        ?>
+     <table cellpadding="10px" cellspacing="10px" rules="all" style="border:solid 1px black; border-collapse:collapse; background-color:lightgrey; text-align:center;">
+            <tr>
+                <th>Semestre</th>
+                <th>Libellé du Semestre</th>
+                <th>Catégorie</th>
+                <th>Sigle de l'UV</th>
+                <th>Faite à l'UTT</th>
+                <th>Dans le profil</th>
+                <th>Résultat</th>
+                <th>Crédits Obtenus</th>
+            </tr>
+            <?php affichageUV($list_UV);?>
     </table>
+    <div><button type='button' value="Modifier le Cursus" onClick= "modifierCursus();">Modifier</button></div>
+    <div><button type='button' value="Dupliquer le Cursus" onClick= "dupliquerCursus();">Dupliquer</button></div>
+    <div><button type='button' value="Supprimer le Cursus" onClick= "supprimerCursus();">Supprimer</button></div> 
+    <div><button type='button' value="Exporter le Cursus" onClick= "exporterCursus();">Exporter</button></div>  
 </body>
 </html>

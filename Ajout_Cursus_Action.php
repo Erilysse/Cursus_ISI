@@ -28,21 +28,21 @@ else {
     $id_cursus=mysql_insert_id();
     if (!(execute_requete($bd,$reg_insert1))) {
         echo "ERREUR: Le cursus n'a pas été enregistré";
+        // Boucle pour créer les éléments de formation dans la table
+        for ($i = 0; $i <= count($UV_Sigle); $i++) {
+            $reg_insert2="insert into elt_de_formation values (NULL,$id_cursus,".$UV_Semestre_Numero[$i].",".$UV_Semestre_Label[$i].","
+                .$UV_Sigle[$i].",".$UV_Categorie[$i].",".$UV_Affectation[$i].",".$UV_inUTT[$i].",".$UV_inProfil[$i].","
+                .$UV_Credit_Numero[$i].",".$UV_Resultat[$i].")";
+            if (!(execute_requete($bd,$reg_insert2))) {
+                echo "ERREUR: L'element de formation n'a été enregistré";
+            }
+            else{
+                echo "L'element a été enregistré";
+            }
+        }
     }
     else{
         echo "Le cursus a été enregistré";
-    }
-    // Boucle pour créer les éléments de formation dans la table
-    for ($i = 0; $i <= count($UV_Sigle); $i++) {
-        $reg_insert2="insert into elt_de_formation values (NULL,$id_cursus,".$UV_Semestre_Numero[$i].",".$UV_Semestre_Label[$i].","
-                .$UV_Sigle[$i].",".$UV_Categorie[$i].",".$UV_Affectation[$i].",".$UV_inUTT[$i].",".$UV_inProfil[$i].","
-                .$UV_Credit_Numero[$i].",".$UV_Resultat[$i].")";
-        if (!(execute_requete($bd,$reg_insert2))) {
-            echo "ERREUR: L'element de formation n'a été enregistré";
-        }
-        else{
-            echo "L'element a été enregistré";
-        }
     }
 }
 ?>
