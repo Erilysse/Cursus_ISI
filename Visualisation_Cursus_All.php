@@ -1,26 +1,29 @@
 <?php
-include('\include\MYSQL\config.php');
-include('\include\MYSQL\bibli_bdd.php');
+include('include\MYSQL\config.php');
+include('include\MYSQL\bibli_bdd.php');
 $list_cursus = [];
 $list_UV = [];
 
 $bd  = connect_bdd($serveur,$utilisateur,$mot_de_passe);
+
 if ($bd) {
-        echo "Impossible de se connecter à la base de données";
-}
-else {
-    $reg_insert1 = "SELECT * FROM cursus";
-    if (execute_requete($bd,$reg_insert1)) {
-        $answer = $bd->query($request1);
-        while ($cursus = $answer->fetch()) {
+    $request1 = "SELECT * FROM cursus";
+    $answer1 = $bd->query($request1);
+    if (empty($answer1)) {
+        while ($cursus = $answer1->fetch()) {
             $request2 = "SELECT * FROM elt_de_formation WHERE id_cursus = $id_cursus";
             $answer2 = $bd->query($request2);
-            while ($data = $answer2->fetch()) {
-                array_push($list_UV, [$data['sem_seq'],$data['sem_label'],$data['sigle'],$data['categorie'],$data['inutt'],$data['inprofil'],$data['credit'],$data['resultat']]) ;
+            if (empty($answer2)) {
+                while ($data = $answer2->fetch()) {
+                    array_push($list_UV, [$data['sem_seq'],$data['sem_label'],$data['sigle'],$data['categorie'],$data['inutt'],$data['inprofil'],$data['credit'],$data['resultat']]) ;
+                }
+            array_push($list_cursus, [$cursus['id'],$cursus['id_etu'],$list_UV]);
             }
-        array_push($list_cursus, [$cursus['id'],$cursus['id_etu'],$list_UV]);
         }
     }
+}
+else {
+     echo "Impossible de se connecter à la base de données";
 }
 
 function affichageCursus($list_cursus) {

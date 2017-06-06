@@ -1,14 +1,11 @@
 <?php
-include('\include\MYSQL\config.php');
-include('\include\MYSQL\bibli_bdd.php');
+include('include\MYSQL\config.php');
+include('include\MYSQL\bibli_bdd.php');
 $list_UV = [];
 $bd  = connect_bdd($serveur,$utilisateur,$mot_de_passe);
 
 if ($bd) {
-        echo "Impossible de se connecter à la base de données";
-}
-else {
-    $etu_numero = $_POST['numetu'];
+     $etu_numero = $_POST['numetu'];
     $reg_insert1 = "SELECT id FROM cursus WHERE id_etu = $etu_numero";
     if (isset($etu_numero)) {
         $answer = $bd->query($request1);
@@ -20,14 +17,18 @@ else {
         }
     }
 }
-function affichageUV($list_UV) {
-foreach ($list_UV as $key => $UV) {
-    echo "<tr>";
-    foreach ($UV as $value) {
-        echo "<th>" . $value . "</th>";
-    }
-    echo "</tr>";
+else {
+           echo "Impossible de se connecter à la base de données";
 }
+
+function affichageUV($list_UV) {
+    foreach ($list_UV as $key => $UV) {
+        echo "<tr>";
+        foreach ($UV as $value) {
+            echo "<th>" . $value . "</th>";
+        }
+        echo "</tr>";
+    }
 }
 ?>
 <html>
@@ -41,8 +42,10 @@ foreach ($list_UV as $key => $UV) {
     <h1>Rechercher :</h1>
     <form method="POST" id='VoirCursus' name='VoirCursus' action="Visualisation_Cursus.php">
                 <div>Numéro de l'étudiant :<input type='number' name='numetu' size='10' maxlength='10' value='' /></div>
-                <div><a href="Visualisation_Cursus.php"><input type='submit' value='Envoyer' /></a></div>
-                <div><input type='reset' value='Annuler' /></div
+                <div>
+                    <a href="Visualisation_Cursus.php"><input type='submit' value='Envoyer' /></a>
+                    <input type='reset' value='Annuler' />
+                </div>
     </form>
      <table cellpadding="10px" cellspacing="10px" rules="all" style="border:solid 1px black; border-collapse:collapse; background-color:lightgrey; text-align:center;">
             <tr>
@@ -57,9 +60,11 @@ foreach ($list_UV as $key => $UV) {
             </tr>
             <?php affichageUV($list_UV);?>
     </table>
-    <div><button type='button' value="Modifier le Cursus" onClick= "modifierCursus();">Modifier</button></div>
-    <div><button type='button' value="Dupliquer le Cursus" onClick= "dupliquerCursus();">Dupliquer</button></div>
-    <div><button type='button' value="Supprimer le Cursus" onClick= "supprimerCursus();">Supprimer</button></div> 
-    <div><button type='button' value="Exporter le Cursus" onClick= "exporterCursus();">Exporter</button></div>  
+    <div>
+         <a href="Visualisation_Cursus.php"><input type='submit' value='Envoyer' /></a>
+        <button type='button' value="Dupliquer le Cursus" onClick= "dupliquerCursus();">Dupliquer</button>
+        <button type='button' value="Supprimer le Cursus" onClick= "supprimerCursus();">Supprimer</button>
+        <button type='button' value="Exporter le Cursus" onClick= "exporterCursus();">Exporter</button>
+    </div>
 </body>
 </html>

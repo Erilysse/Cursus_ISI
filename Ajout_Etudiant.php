@@ -7,7 +7,7 @@
 </head>
 <body>
     <table>
-        <form method="POST" id='FormAjoutEtudiant' name='FormAjoutEtudiant' action="Formulaire_Ajout_Action.php">
+        <form method="POST" id='FormAjoutEtudiant' name='FormAjoutEtudiant' action="Ajout_Etudiant_Action.php.php">
             <fieldset legend="A propos de vous">
                 <div><h>Nom :</h> <input type='text' name='nom' size='10' maxlength='10' value='' /></div>
                 <div><h>Prénom :</h> <input type='text' name='prenom' size='10' maxlength='10' value='' /></div>
@@ -23,7 +23,9 @@
                     <option>?</option>
                 </select></div>
             </fieldset>
-        </form>
+            <div><a href="Visualisation_Etudiant.php"><input type='submit' value='Envoyer' /></a></div>
+        <div><input type='reset' value='Réinitialiser' /></div
+        </form>        
     </table>
 </body>
 </html>    

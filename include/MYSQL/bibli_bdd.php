@@ -51,7 +51,7 @@ function connect_bdd($serveur, $utilisateur, $mot_de_passe){
    
     try {
         $bd = new PDO($serveur, $utilisateur, $mot_de_passe);
-        //echo "<p>BDD connectee</p>";
+        // echo "BDD connectee";
         return $bd;
     } catch (PDOException $e) {
         echo "La connexion a la base via la chaine [".$serveur."] a echouee".

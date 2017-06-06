@@ -1,7 +1,7 @@
 <?php
 // Créer la liste d'étudiant avec les données de la table etudiant de la base de données 
-include('\include\MYSQL\config.php');
-include('\include\MYSQL\bibli_bdd.php');
+include('include\MYSQL\config.php');
+include('include\MYSQL\bibli_bdd.php');
 
 $list_etudiant = [];
 $request = "select * from etudiant";
