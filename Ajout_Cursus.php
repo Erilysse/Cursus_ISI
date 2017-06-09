@@ -14,6 +14,7 @@ include('BibliothequePHP.php');
     <table>
         <form method="POST" id='FormAjoutCursus' name='FormAjoutCursus' action="Ajout_Cursus_Action.php">
     <div id='NumEtu'>Numéro de l'étudiant: <input type='number' name='numetu' size='10' maxlength='10' value='' /></div>    
+    <div id='NomCursus'>Nom du Cursus: <input type='text' name='nomcursus' size='20' maxlength='20' value='' /></div>    
     <div id='ListeUV'>            
     <div id='UV1'>
     <fieldset>

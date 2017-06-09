@@ -2,6 +2,7 @@
 // Récupération des éléments du formulaire ajoutCursus
 
 $Etu_Numero = $_POST['numetu'];
+$Cursus_Nom = $_POST['nomcursus'];
 
 $UV_Semestre_Numero[] = $_POST['numsem'];
 $UV_Semestre_Label[] = $_POST['labelsem'];
@@ -20,7 +21,7 @@ include('include\MYSQL\bibli_bdd.php');
 $bd  = connect_bdd($serveur,$utilisateur,$mot_de_passe);
 if ($bd) {
     // Création du cursus d'après le numéro étu
-    $request1="insert into cursus values (NULL,".$Etu_Numero.")";
+    $request1="insert into cursus values (NULL,".$Etu_Numero.",".$Cursus_Nom.")";
     // Récupération de l'id du cursus afin de créer les éléments de formation qui le composent
     $id_cursus=mysql_insert_id();
     if (!(execute_requete($bd,$request1))) {

@@ -13,6 +13,7 @@ CREATE TABLE IF NOT EXISTS `etudiant` (
 CREATE TABLE IF NOT EXISTS `cursus` (
   `id` int(20) NOT NULL AUTO_INCREMENT,
   `id_etu` int(20) NOT NULL,
+  `nom` varchar(20) NOT NULL,
   PRIMARY KEY (`id`),
   CONSTRAINT CUR_FK FOREIGN KEY(id_etu) REFERENCES etudiant(num_etudiant)
 ) ;
@@ -26,8 +27,8 @@ CREATE TABLE IF NOT EXISTS `elt_de_formation` (
   `sigle` varchar(50)  NOT NULL,
   `categorie` varchar(50) NOT NULL,
   `affectation` varchar(50) NOT NULL,
-  `inutt` tinyint(1) NOT NULL,
-  `inprofil` tinyint(1) NOT NULL,
+  `inutt` varchar(10) NOT NULL,
+  `inprofil` varchar(10) NOT NULL,
   `credit` int(11) NOT NULL,
   `resultat` varchar(50) NOT NULL,
   PRIMARY KEY (`id`),
