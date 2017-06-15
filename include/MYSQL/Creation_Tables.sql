@@ -7,7 +7,8 @@ CREATE TABLE IF NOT EXISTS `etudiant` (
   `admission` varchar(10) NOT NULL,
   `filiere` varchar(10) NOT NULL,
   PRIMARY KEY (`num_etudiant`)
-);
+)
+  ENGINE=INNODB;
 
 
 CREATE TABLE IF NOT EXISTS `cursus` (
@@ -16,7 +17,8 @@ CREATE TABLE IF NOT EXISTS `cursus` (
   `nom` varchar(20) NOT NULL,
   PRIMARY KEY (`id`),
   CONSTRAINT CUR_FK FOREIGN KEY(id_etu) REFERENCES etudiant(num_etudiant)
-) ;
+)
+  ENGINE=INNODB;
 
 
 CREATE TABLE IF NOT EXISTS `elt_de_formation` (
@@ -33,14 +35,16 @@ CREATE TABLE IF NOT EXISTS `elt_de_formation` (
   `resultat` varchar(50) NOT NULL,
   PRIMARY KEY (`id`),
   CONSTRAINT ELT_FK FOREIGN KEY(id_cursus) REFERENCES cursus(id)
-) ;
+)
+  ENGINE=INNODB;
 
 
 CREATE TABLE IF NOT EXISTS `reglement` (
   `id` int(20) NOT NULL AUTO_INCREMENT,
   `nom` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-);
+)
+  ENGINE=INNODB;
 
 
 INSERT INTO `reglement` VALUES (NULL,'FUTUR_REGLEMENT');
