@@ -79,5 +79,6 @@ function affichageUV($list_UV) {
     </form>
         <h1>Cursus de tout les étudiants</h1>
     <?php affichageCursus($list_cursus); ?>
+        <a href='index.php'>Retour à l'Accueil</a>
     </body>
 </html>

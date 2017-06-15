@@ -27,5 +27,6 @@
         <div><input type='reset' value='Réinitialiser' /></div
         </form>        
     </table>
+    <a href='index.php'>Retour à l'Accueil</a>
 </body>
 </html>    

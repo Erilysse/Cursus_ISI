@@ -83,5 +83,6 @@ function affichageCursus($list_cursus) {
         <button type='button' value="Supprimer le Cursus" onClick= "supprimerCursus();">Supprimer</button>
         
     </div>
+        <a href='index.php'>Retour à l'Accueil</a>
 </body>
 </html>

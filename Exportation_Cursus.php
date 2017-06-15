@@ -21,8 +21,7 @@ else {
     }
 }
 //On récupère toutes les données concernant l'étudiant
-$etudiant = new etudiant($cursus->getIDetu(),NULL,NULL,NULL,NULL,$database);
-$elements = $cursus->getelem($database);
+
 echo "Cursus ",$cursus->getnomCursus(),' de ';
 echo $etudiant->getprenom(),' ',$etudiant->getnom();
 //Ouverture du fichier
@@ -48,8 +47,8 @@ fputs($fichierCursus , ";;;;;;;;$retourLigne");
 fputs($fichierCursus , "==;s_seq;s_label;sigle;categorie;affectation;utt;profil;credit;resultat$retourLigne");
 //On inscrit tous les éléments de formations
 foreach ($elements as $values){
-	$requete = "SELECT * FROM `element_de_formation` WHERE (`sigle` = '$values[ELEMENT_DE_FORMATION_sigle]' AND `sem_seq` = $values[ELEMENT_DE_FORMATION_sem_seq] AND `sem_label` = '$values[ELEMENT_DE_FORMATION_sem_label]' AND `resultat` = '$values[ELEMENT_DE_FORMATION_resultat]' AND `profil` = '$values[ELEMENT_DE_FORMATION_profil]')";
-		$resultat = requete($database,$requete);
+	$request = "SELECT * FROM `element_de_formation` WHERE (`sigle` = '$values[ELEMENT_DE_FORMATION_sigle]' AND `sem_seq` = $values[ELEMENT_DE_FORMATION_sem_seq] AND `sem_label` = '$values[ELEMENT_DE_FORMATION_sem_label]' AND `resultat` = '$values[ELEMENT_DE_FORMATION_resultat]' AND `profil` = '$values[ELEMENT_DE_FORMATION_profil]')";
+		$resultat = requete($database,$request);
 		$ligne = mysqli_fetch_array($resultat,MYSQLI_ASSOC);
 		fputs($fichierCursus, "EL;$ligne[sem_seq];$ligne[sem_label];$ligne[sigle];$ligne[categorie];$ligne[affectation];$ligne[utt];$ligne[profil];$ligne[credit];$ligne[resultat]$retourLigne");
 		echo " ";
@@ -60,9 +59,6 @@ fputs($fichierCursus, "$retourLigne");
 fputs($fichierCursus, "$retourLigne");
 fputs($fichierCursus, "$retourLigne");
 fclose($fichierCursus);
-Saut();
 echo"<a href='cursus.csv' dowload='cursus' > Cliquer ici pour télécharger le fichier </a>";
-
-Revenir($IDetudiant);
 
 mysqli_close($database);

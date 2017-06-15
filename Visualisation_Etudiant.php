@@ -6,9 +6,9 @@ include('include\MYSQL\bibli_bdd.php');
 $list_etudiant = [];
 $request = "select * from etudiant";
 $bd  = connect_bdd($serveur,$utilisateur,$mot_de_passe);
-$answer = $bd->query($request);
-while ($data = $answer->fetch()) {
-    array_push($list_etudiant, [$data["numetu"], $data["nom"], $data["prenom"], $data["admission"], $data["filiere"]]);
+$etudiants = $bd->query($request);
+while ($data = $etudiants->fetch()) {
+    array_push($list_etudiant, [$data["num_etudiant"], $data["nom"], $data["prenom"], $data["admission"], $data["filiere"]]);
 }
 
 function affichageEtudiants($list_etudiant) {
@@ -17,9 +17,8 @@ function affichageEtudiants($list_etudiant) {
         foreach ($etudiant as $value) {
             echo "<th>" . $value . "</th>";
         }
-        // Il manque le lien vers son cursus utiliser un lien avec le numero etudiant
-        echo "<th><form method='POST' name='Cursus' action='Visualisation_Cursus_Etudiant.php'>
-            <hidden
+        echo "<th><form method='POST' id='VoirCursus' name='VoirCursus' action='Visualisation_Cursus_Etudiant.php'>
+             <input type='hidden' name='numetu' value='".$etudiant[0]."'>
   <a href='Visualisation_Cursus_Etudiant.php'><input type='submit' value='Voir le cursus' /></a></th>";
         echo "</tr>";
     }
@@ -45,5 +44,7 @@ function affichageEtudiants($list_etudiant) {
             </tr>
             <?php affichageEtudiants($list_etudiant) ?>
     </table>
-    </body>
+        <a href='Ajout_Etudiant.php'>Ajouter un étudiant</a>
+        <a href='index.php'>Retour à l'Accueil</a>
+  </body>
 </html>

@@ -1,11 +1,12 @@
 <?php
 // Récupération des éléments du formulaire
+if (isset($_POST)) {
 $Etu_Nom= $_POST['nom']; 
 $Etu_Prenom = $_POST['prenom'];
 $Etu_Numero = $_POST['numetu'];
 $Etu_Admission = $_POST['admission'];
 $Etu_Filiere = $_POST['filiere'];
-
+}
 // Ajout des fichiers pour la connexion à la bdd
 include('include\MYSQL\config.php');
 include('include\MYSQL\bibli_bdd.php');
@@ -15,7 +16,7 @@ $bd  = connect_bdd($serveur,$utilisateur,$mot_de_passe);
 
 if ($bd) {
     // Ajout des éléments du formulaire dans la base de données étudiant avec test erreur
-    $request="insert into etudiant values (".$Etu_Numero.",".$Etu_Nom.",".$Etu_Prenom.",".$Etu_Admission.",".$Etu_Filiere.")";
+    $request="insert into `etudiant`(`num_etudiant`, `nom`, `prenom`, `admission`, `filiere`) values (".$Etu_Numero.",'".$Etu_Nom."','".$Etu_Prenom."','".$Etu_Admission."','".$Etu_Filiere."')";
     if (!(execute_requete($bd,$request))) {
         echo "ERREUR: L'étudiant n'a pas pu être enregistré";
     }

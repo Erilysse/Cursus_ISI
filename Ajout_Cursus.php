@@ -34,9 +34,10 @@ include('BibliothequePHP.php');
     </div>
         <div><button type='button' value="Ajouter une UV" onClick= "ajouterUV();">Ajouter une UV</button></div>
         <br>   
-        <div><a href="Visualisation_Cursus.php"><input type='submit' value='Envoyer' /></a></div>
+        <div><a href="Ajout_Cursus_Action.php"><input type='submit' value='Envoyer' /></a></div>
         <div><input type='reset' value='Réinitialiser' /></div
         </form>        
     </table>
+    <a href='index.php'>Retour à l'Accueil</a>
 </body>
 </html>
