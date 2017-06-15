@@ -1,62 +1,84 @@
 <?php
-$Etu_Numero = $_POST['numetu'];
-$UV_Numero = $_POST['numUV'];
-?>
+include('BibliothequePHP.php');
+include ('include/MYSQL/config.php');
+include ('include/MYSQL/bibli_bdd.php');
+$bd = connect_bdd($serveur, $utilisateur, $mot_de_passe);
+if (!$bd) {
+    echo "Impossible de connecter la base";
+} else {
+    ?>
 
-<html>
-<head>
-        <title>Modfier un cursus</title>
-        <link type='text/CSS' href='../include/CSS/style.js'>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-</head>
-<body>
-    <form method="POST" id='FormMoficationCursus' name='FormMoficationCursus' action="Formulaire_Modification_Action.php">
-         <?php for ($i = 1; $i <= $UV_Numero; $i++) {
-    echo ("UV N°".$i." -");
-    echo (" <div>N° du Semestre : <input type='text' name='numsem' size='10' maxlength='10' value='' /></div>
-                    <div>Label du Semestre :<input type='text' name='labelsem' size='10' maxlength='10' value='' /></div>
-                    <div>Sigle :<input type='text' name='sigle' size='5' maxlength='4' value='' /></div>
-                    <div>Catégorie :<select name='categorie'>
-                    <option>CS</option>
-                    <option>TM</option>
-                    <option>ME</option>
-                    <option>EC</option>
-                    <option>HT</option>
-                    <option>NPML</option>
-                    <option>ST</option>
-                    </select></div>
-                    <div>Affectation :");
-           
-/* <input type="radio" name='affectation' value='TC'/>Tronc Commun
-            <input type="radio" name='affectation' value='TCBR'/>Tronc Commun de Branche
-            <input type="radio" name='affectation' value='FCBR'/>Branche
-                <div>A-t-elle a été passé à l'UTT ?
-            <input type="radio" name='inUTT' value='true'/>Oui
-            <input type="radio" name='inUTT' value='false'/>Non
-                <div>Correspond-t-elle a votre profil ?
-            <input type="radio" name='inProfil' value='true'/><u>Oui</u>
-            <input type="radio" name='inProfil' value='false'/><u>Non</u>
-                <div>Nombre de crédit obtenu :<input type='number' name='numcredit' size='5' maxlength='4' value='' /></div>
-                <div>Résultat à l'UV :><select name='result'>
-                    <option>A</option>
-                    <option>B</option>
-                    <option>C</option>
-                    <option>D</option>
-                    <option>E</option>
-                    <option>FX</option>
-                    <option>F</option>
-                </select></div>
-            <div><button type='button' value="Ajouter une UV" id="AjoutElement"></button></div>
-                </fieldset>
-            
-        <div><a href="Visualisation_Cursus.php"><input type='submit' value='Envoyer' /></a></div>
-        <div><input type='reset' value='Annuler' /></div
-        </form>"*/
-            }
-            ?>         
-        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
-        <script type="text/JavaScript" src="include/javascript/AjoutElement.js"></script>
-        </table>
-    </body>
-</html>
+    <html>
+        <head>
+            <title>Modifier un cursus</title>
+            <link type='text/CSS' href='include/CSS/style.js'>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <script type="text/JavaScript" src="include\javascript\AjoutElement.js"></script>
+        </head>
+        <body>
+
+            <table>
+                <?php
+                if (!isset($_POST['numetu']) && !isset($_POST['cursus'])) {
+                    ?>
+                    <form method="POST" id='ModifCursusEtu' name='ModifCursusEtu' action="Formulaire_Modification.php">
+                        <div id='NumEtu'>Numéro de l'étudiant: <input type='number' name='numetu' size='10' maxlength='10' value='' />
+                            <input type='submit' value='Envoyer' /></div>
+                    </form>
+                    <?php
+                } else if (isset($_POST['numetu']) && !isset($_POST['cursus'])) {
+                    $etu = $_POST['numetu'];
+                    $reqCursus = "SELECT nom FROM cursus WHERE id_etu=$etu";
+                    ?>
+                    <form method="POST" id='ModifCursusNb' name='ModifCursusNb' action="Formulaire_Modification.php">
+                        <!-- <input type="hidden" name="numetu" value="<?php //echo $_POST['numetu'];  ?>" /> -->
+                        <div id='NumEtu'>Numéro de l'étudiant: <input type='number' name='numetu' size='10' maxlength='10' value='<?php echo $_POST['numetu'] ?>' /></div>
+                        <div id='Cursus'>Numéro cursus:<?php echo inputRadioReq($bd, $reqCursus, "cursus"); ?>
+                            <input type='submit' value='Envoyer' /></div>
+                    </form>
+
+                    <?php
+                }
+                if (isset($_POST['numetu'], $_POST['cursus'])) {
+                    $etu = $_POST['numetu'];
+                    $cursus = $_POST['cursus'];
+
+                    $req = "SELECT e.id FROM elt_de_formation e, cursus c WHERE c.nom='$cursus' AND c.id_etu=$etu AND c.id=e.id_cursus"; //récupère les éléments de formation en fonction du cursus
+                    ?>
+                    <form method="POST" id='ModifCursus' name='ModifCursus' action="Formulaire_Modification_Action.php">
+                        <input type="hidden" name="cursus" value="<?php echo $cursus; ?>" />
+                        <?php
+                        foreach (execute_select_ss_view($bd, $req) as $temp)
+                            foreach ($temp as $i) {
+
+                                $req = "SELECT * FROM elt_de_formation WHERE id=$i";
+                                $req_res = execute_select_ss_view($bd, $req); //Utilisation de numéros pour l'index du résultat de la requête
+                                ?>
+                                <div id='ListeUV'>            
+                                    <div id='UV1'>
+                                        <fieldset>
+                                            <input type="hidden" name="id[]" value="<?php echo $i; ?>" />
+                                            <div>N° du Semestre : <input type='text' name='numsem[]' size='10' maxlength='10' value='<?php echo $req_res[0]['sem_seq']; ?>' /></div>
+                                            <div>Label du Semestre :<input type='text' name='labelsem[]' size='10' maxlength='10' value='<?php echo $req_res[0]['sem_label']; ?>' /></div>
+                                            <div>Sigle :<input type='text' name='sigle[]' size='5' maxlength='4' value='<?php echo $req_res[0]['sigle']; ?>' /></div>
+                                            <div>Catégorie :<?php echo inputRadioDef($Categorie_Options, "categorie[]", $req_res[0]['categorie']); ?></div>
+                                            <div>Affectation :<?php echo inputRadioDef($Affectation_Options, "affectation[]", $req_res[0]['affectation']); ?></div>
+                                            <div>A-t-elle a été passé à l'UTT ?<?php echo inputRadioDef($Boolean_Options, "inUTT[]", $req_res[0]['inutt']); ?></div>
+                                            <div>Correspond-t-elle a votre profil ?
+                                                <?php echo inputRadioDef($Boolean_Options, "inProfil[]", $req_res[0]['inprofil']); ?></div>
+                                            <div>Nombre de crédit obtenu :<input type='number' name='numcredit[]' size='5' maxlength='4' value='<?php echo $req_res[0]['credit']; ?>' /></div>
+                                            <div>Résultat à l'UV :<?php echo inputRadioDef($Resultat_Options, "result[]", $req_res[0]['resultat']); ?></div>
+                                            <div>Action<?php echo inputRadioDef(array("Modification", "Suppression"), "action[]", "Modification"); ?></div>
+                                        </fieldset>
+                                    </div>
+                                </div>
+                            <?php } ?>
+                        <div><a href="Visualisation_Cursus.php"><input type='submit' value='Envoyer' /></a></div>
+                        <div><input type='reset' value='Réinitialiser' /></div>
+                    <?php } ?>
+                </form>        
+            </table>
+        </body>
+    </html>
+<?php } ?>
