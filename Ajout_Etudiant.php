@@ -1,11 +1,12 @@
 <html>
 <head>
         <title>Ajouter un étudiant</title>
-        <link type='text/CSS' href='../include/CSS/style.js'>
+        <link rel='stylesheet' type='text/css' href='include/CSS/Original.css' />
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
+    <div id="menu"><?php include('index.php'); ?></div>
     <table>
         <form method="POST" id='FormAjoutEtudiant' name='FormAjoutEtudiant' action="Ajout_Etudiant_Action.php">
             <fieldset legend="A propos de vous">
@@ -27,6 +28,5 @@
         <div><input type='reset' value='Réinitialiser' /></div
         </form>        
     </table>
-    <a href='index.php'>Retour à l'Accueil</a>
 </body>
 </html>    

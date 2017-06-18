@@ -5,12 +5,13 @@ include('BibliothequePHP.php');
 <html>
 <head>
         <title>Ajouter un cursus</title>
-        <link type='text/CSS' href='include/CSS/style.js'>
+        <link rel='stylesheet' type='text/css' href='include/CSS/Original.css' />
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
     <script type="text/JavaScript" src="include\javascript\AjoutElement.js"></script>
+    <div id="menu"><?php include('index.php'); ?></div>
     <table>
         <form method="POST" id='FormAjoutCursus' name='FormAjoutCursus' action="Ajout_Cursus_Action.php">
     <div id='NumEtu'>Numéro de l'étudiant: <input type='number' name='numetu' size='10' maxlength='10' value='' /></div>    
@@ -38,6 +39,5 @@ include('BibliothequePHP.php');
         <div><input type='reset' value='Réinitialiser' /></div
         </form>        
     </table>
-    <a href='index.php'>Retour à l'Accueil</a>
 </body>
 </html>

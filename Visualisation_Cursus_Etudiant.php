@@ -58,31 +58,31 @@ function affichageCursus($list_cursus) {
 <html>
     <head>
         <title>Cursus des étudiants</title>
-        <link type='text/CSS' href='../include/CSS/style.js'>
+        <link rel='stylesheet' type='text/css' href='include/CSS/Original.css' />
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     <body>
-            <h2>Rechercher :</h2>
-    <form method="POST" id='VoirCursus' name='VoirCursus' action="Visualisation_Cursus_Etudiant.php">
-                <div>Numéro de l'étudiant :<input type='number' name='numetu' size='10' maxlength='10' value='' /></div>
-                <div>
-                    <a href="Visualisation_Cursus_Etudiant.php"><input type='submit' value='Envoyer' /></a>
-                    <input type='reset' value='Annuler' />
-                </div>
-    </form>
-        <h1>Votre cursus</h1>
+        <div id="bandeau">Rechercher :
+            <form method="POST" id='VoirCursus' name='VoirCursus' action="Visualisation_Cursus_Etudiant.php">
+            <div>Numéro de l'étudiant :<input type='number' name='numetu' size='10' maxlength='10' value='' /></div>
+            <div>
+                <a href="Visualisation_Cursus.php"><input type='submit' value='Envoyer' /></a>
+                <input type='reset' value='Annuler' />
+            </div>
+            </form>
+        </div>
+        <div id="menu"><?php include('index.php'); ?></div>
+        <h1>Vos cursus</h1>
     <?php if (isset($etu_numero)) {
     affichageCursus($list_cursus); }?>
     <div>
         <form
             <input type="hidden" name="numetu" value="<?php if (isset($etu_numero)) { $etu_numero; } ?>">
-            <a href="Modification_Cursus.php"><input type='submit' value='Modifier le Cursus' /></a>
+            <a href="Formulaire_Modification.php"><input type='submit' value='Modifier le Cursus' /></a>
+            <a href="Supprimer_Cursus.php"><input type='submit' value='Supprimer le Cursus' /></a>
+            <a href="Dupliquer_Cursus.php"><input type='submit' value='Dupliquer le Cursus' /></a>
         </form>
-        <button type='button' value="Dupliquer le Cursus" onClick= "dupliquerCursus();">Dupliquer</button>
-        <button type='button' value="Supprimer le Cursus" onClick= "supprimerCursus();">Supprimer</button>
-        
     </div>
-        <a href='index.php'>Retour à l'Accueil</a>
 </body>
 </html>

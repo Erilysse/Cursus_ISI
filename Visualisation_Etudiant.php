@@ -28,12 +28,14 @@ function affichageEtudiants($list_etudiant) {
 <html>
     <head>
         <title>Liste des étudiants</title>
-        <link type='text/CSS' href='../include/CSS/style.js'>
+        <link rel='stylesheet' type='text/css' href='include/CSS/Original.css' />
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     <body>
-    <table cellpadding="5px" cellspacing="5px" rules="all" style="border:solid 1px black; border-collapse:collapse; background-color:lightgrey; text-align:center;">
+        <div id="bandeau"><a href='Ajout_Etudiant.php'>Ajouter un étudiant</a></div>
+        <div id="menu"><?php include('index.php'); ?></div>
+        <table cellpadding="5px" cellspacing="5px" rules="all" style="border:solid 1px black; border-collapse:collapse; background-color:lightgrey; text-align:center;">
             <tr>
                 <th>Numéro étudiant</th>
                 <th>Nom</th>
@@ -44,7 +46,5 @@ function affichageEtudiants($list_etudiant) {
             </tr>
             <?php affichageEtudiants($list_etudiant) ?>
     </table>
-        <a href='Ajout_Etudiant.php'>Ajouter un étudiant</a>
-        <a href='index.php'>Retour à l'Accueil</a>
   </body>
 </html>
