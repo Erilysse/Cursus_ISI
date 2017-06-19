@@ -37,12 +37,14 @@ $bd = connect_bdd($serveur, $utilisateur, $mot_de_passe);
                 if (isset($_POST['numetu'], $_POST['cursus'])) {
                     if ($bd) {
                         $id_cursus = $_POST['cursus'];
-                        $request_dupl_cursus="INSERT INTO `cursus`(`id`, `id_etu`, `nom`) SELECT * FROM `cursus` WHERE id=".$id_cursus."";
+                        $request_dupl_cursus="INSERT INTO `cursus`(`id`, `id_etu`, `nom`) SELECT (NULL, `id_etu`, `nom`) FROM `cursus` WHERE id=".$id_cursus."";
                         if (!(execute_requete($bd,$request_dupl_cursus))) {
                             echo "ERREUR: Le cursus n'a pas été duppliqué";
-                        }     
-                        $request_dupl_elt="INSERT INTO `elt_de_formation`(`id`, `id_cursus`, `sem_seq`, `sem_label`, `sigle`, `categorie`, `affectation`, `inutt`, `inprofil`, `credit`, `resultat`)"
-                    . " SELECT * FROM `elt_de_formation` WHERE id_cursus = ".$id_cursus."";
+                        }
+                        $id_new_cursus =$bd->lastInsertID();
+                        $request_dupl_elt="INSERT INTO `elt_de_formation` (`id`, `id_cursus`, `sem_seq`, `sem_label`, `sigle`, `categorie`, `affectation`, `inutt`, `inprofil`, `credit`, `resultat`)"
+                    . " SELECT (NULL, '".$id_new_cursus."', `sem_seq`, `sem_label`, `sigle`, `categorie`, `affectation`, `inutt`, `inprofil`, `credit`, `resultat`)"
+                                . "FROM `elt_de_formation` WHERE id_cursus = ".$id_cursus."";
                         if (!(execute_requete($bd,$request_dupl_elt))) {
                             echo "ERREUR: Les éléments de formations n'ont pas été dupliqué";
                         }

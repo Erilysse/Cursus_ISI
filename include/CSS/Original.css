@@ -38,11 +38,22 @@ fieldset {
     	background-color:#50564A;
 	}
 
+table {
+    border:solid 2px black;
+    border-collapse:collapse;
+    background-color:#B1D679;
+    text-align:center;
+    color:#475531;
+    margin-left: auto;
+    margin-right: auto;
+    width:80%;
+    }
+
 div#menu {
 	float:left;
         margin:10px;
 	width:auto;
-	height:auto;
+	height:100%;
         color:#475531;
         padding:10px;
 	background-color:#B1D679;

@@ -11,5 +11,6 @@ function ajouterUV(){
     var element = document.getElementById('UV1');
     var copie = element.cloneNode(true);
     copie.id= 'UV' + ++compteur;
+    copie.style = "display : initial;";
     element.parentNode.appendChild(copie);
 }

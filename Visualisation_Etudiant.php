@@ -35,7 +35,9 @@ function affichageEtudiants($list_etudiant) {
     <body>
         <div id="bandeau"><a href='Ajout_Etudiant.php'>Ajouter un étudiant</a></div>
         <div id="menu"><?php include('index.php'); ?></div>
-        <table cellpadding="5px" cellspacing="5px" rules="all" style="border:solid 1px black; border-collapse:collapse; background-color:lightgrey; text-align:center;">
+        <h1>Liste des étudiants</h1>
+        <?php  if (!empty($etudiants)) {?>
+        <table cellpadding="5px" cellspacing="5px" rules="all">
             <tr>
                 <th>Numéro étudiant</th>
                 <th>Nom</th>
@@ -44,7 +46,8 @@ function affichageEtudiants($list_etudiant) {
                 <th>Filière</th>
                 <th>Voir Cursus</th>
             </tr>
-            <?php affichageEtudiants($list_etudiant) ?>
+            <?php affichageEtudiants($list_etudiant); ?>
     </table>
+        <?php } ?>
   </body>
 </html>

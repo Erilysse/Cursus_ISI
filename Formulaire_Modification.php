@@ -72,7 +72,6 @@ if (!$bd) {
                                                     <div>Action<?php echo inputRadioDef(array("Modification", "Suppression"), "action[]", "Modification"); ?></div>
                                                 </fieldset>
                                             </div>
-                                        </div>
                                     <?php }
                                 }
                                 ?>

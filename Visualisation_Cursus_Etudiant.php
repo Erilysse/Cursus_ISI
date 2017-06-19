@@ -75,7 +75,7 @@ function affichageCursus($list_cursus) {
         <div id="menu"><?php include('index.php'); ?></div>
         <h1>Vos cursus</h1>
     <?php if (isset($etu_numero)) {
-    affichageCursus($list_cursus); }?>
+    affichageCursus($list_cursus); ?>
     <div>
         <form
             <input type="hidden" name="numetu" value="<?php if (isset($etu_numero)) { $etu_numero; } ?>">
@@ -84,5 +84,6 @@ function affichageCursus($list_cursus) {
             <a href="Dupliquer_Cursus.php"><input type='submit' value='Dupliquer le Cursus' /></a>
         </form>
     </div>
+    <?php } ?>
 </body>
 </html>
