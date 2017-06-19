@@ -17,9 +17,9 @@ function affichageEtudiants($list_etudiant) {
         foreach ($etudiant as $value) {
             echo "<th>" . $value . "</th>";
         }
-        echo "<th><form method='POST' id='VoirCursus' name='VoirCursus' action='Visualisation_Cursus_Etudiant.php'>
-             <input type='hidden' name='numetu' value='".$etudiant[0]."'>
-  <a href='Visualisation_Cursus_Etudiant.php'><input type='submit' value='Voir le cursus' /></a></th>";
+        echo "<th><form method='POST' id='VoirCursus' name='VoirCursus' action='Visualisation_Cursus_Etudiant.php'>"
+        . "<input type='hidden' name='numetu' value='".$etudiant[0]."'>"
+                . "<a href='Visualisation_Cursus_Etudiant.php'><input type='submit' value='Voir le cursus' /></a></form></th>";
         echo "</tr>";
     }
 }

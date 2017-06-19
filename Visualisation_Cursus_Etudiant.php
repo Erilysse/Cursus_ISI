@@ -25,9 +25,6 @@ if ($bd && isset($_POST['numetu'])) {
         }
     }
 }
-else {
-     echo "Impossible de se connecter à la base de données";
-}
 
 function affichageCursus($list_cursus) {
     foreach ($list_cursus as $key => $cursus) {

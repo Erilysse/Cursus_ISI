@@ -6,7 +6,7 @@ $bd = connect_bdd($serveur, $utilisateur, $mot_de_passe);
 ?>
     <html>
         <head>
-            <title>Modifier un cursus</title>
+            <title>Supprimer un cursus</title>
             <link rel='stylesheet' type='text/css' href='include/CSS/Original.css' />
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
