@@ -14,7 +14,7 @@ if ($bd && isset($_POST['numetu'])) {
     $answer1 = $bd->query($request1);
     if (!empty($answer1)) {
         while ($cursus = $answer1->fetch()) {
-            $request2 = "SELECT * FROM elt_de_formation WHERE id_cursus = ".$cursus['id']."";
+            $request2 = "SELECT * FROM elt_de_formation WHERE id_cursus =".$cursus['id']."";
             $answer2 = $bd->query($request2);
             if (!empty($answer2)) {
                 while ($data = $answer2->fetch()) {
@@ -22,34 +22,47 @@ if ($bd && isset($_POST['numetu'])) {
                 }
             array_push($list_cursus, [$cursus['nom'],$list_UV]);
             }
+            $bulats = "SELECT * INTO elt_de_formation where sigle=NPML and id_cursus=".$cursus['id']."";
+            $tn09 = "SELECT * INTO elt_de_formation WHERE sigle=TN09 and id_cursus=".$cursus['id']."";
+            $tn10 ="SELECT * INTO elt_de_formation WHERE sigle=TN10 and id_cursus=".$cursus['id']."";
+            $tn30 ="SELECT * INTO elt_de_formation WHERE sigle=TN30 and id_cursus=".$cursus['id']."";
         }
     }
 }
 
-function affichageCursus($list_cursus) {
+function affichageCursus($list_cursus,$bulats,$tn10,$tn30,$tn09,$bd) {
     foreach ($list_cursus as $key => $cursus) {
         echo "<table cellpadding='5px' cellspacing='5px' rules='all' style='border:solid 1px black; border-collapse:collapse; background-color:lightgrey; text-align:center;'>
-                <tr>
-                <th>Nom du Cursus</th>
-                <th>Semestre</th>
-                <th>Libellé du Semestre</th>
-                <th>Catégorie</th>
-                <th>UV</th>
-                <th>Faite à l'UTT</th>
-                <th>Dans le profil</th>
-                <th>Résultat</th>
-                <th>Crédits</th>
-                </tr>";
+                <tr><th>Nom du Cursus</th><th>Semestre</th>
+                <th>Libellé du Semestre</th><th>Catégorie</th><th>UV</th>
+                <th>Faite à l'UTT</th><th>Dans le profil</th><th>Résultat</th>
+                <th>Crédits</th></tr>";
         foreach ($cursus[1] as $key => $UV) {
-        echo "<tr>";
-        echo "<th>".$cursus[0]."</th>";
-        foreach($UV as $key => $value) {
-            echo "<th>" . $value . "</th>";
-        }
+            echo "<tr>";
+            echo "<th>".$cursus[0]."</th>";
+            foreach($UV as $key => $value) {
+                echo "<th>" . $value . "</th>";
+            }
         echo "</tr>";
         }
         echo "</table><br>";
+        analyseCursus($bulats,$tn10,$tn30,$tn09,$bd);
     }
+}
+
+function analyseCursus($bulats,$tn10,$tn30,$tn09,$bd) {
+        echo "BULATS :";
+        if(execute_requete($bd,$bulats)) { 
+            echo "OK";
+        } else {
+            echo "Manquant <br>";
+        }
+        echo "Stages : ";
+        if ((execute_requete($bd,$tn10) || execute_requete($bd,$tn30)) && execute_requete($bd,$tn09)) {
+            echo " OK ";
+        } else {
+            echo "TN09 ou TN10/TN30 Manquant <br><br>";
+        }
 }
 ?>
 <html>
@@ -72,7 +85,7 @@ function affichageCursus($list_cursus) {
         <div id="menu"><?php include('index.php'); ?></div>
         <h1>Vos cursus</h1>
     <?php if (isset($etu_numero)) {
-    affichageCursus($list_cursus); ?>
+    affichageCursus($list_cursus,$bulats,$tn10,$tn30,$tn09,$bd); ?>
     <div>
         <form
             <input type="hidden" name="numetu" value="<?php if (isset($etu_numero)) { $etu_numero; } ?>">

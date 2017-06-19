@@ -6,7 +6,7 @@ $Boolean_Options = array("Oui", "Non");
 $Resultat_Options = array("A", "B", "C", "D", "E", "F", "FX", "ABS", "EQU", "ADM");
 
 function inputSelect($options, $name) {
-    $line = "<select name='.$name.'>";
+    $line = "<select name='$name'>";
     $line .= "";
     foreach ($options as $key => $value) {
         $line .= "<option value='$value'>$value</option>";
