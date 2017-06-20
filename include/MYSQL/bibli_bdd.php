@@ -83,7 +83,7 @@ function execute_insert($bd,$un_fichier){
 }
 
 function table_max_id($bd,$table,$chp){
-    $req_max="select IFNULL(max(".$chp."),0)+1 AS L_ID from ".$table;
+    $req_max="select IFNULL(max(".$chp."),0) AS L_ID from ".$table;
     $reponse = $bd->query($req_max);
     if ($reponse === FALSE) {
         $errInfos = $bd->errorInfo();

@@ -4,19 +4,6 @@
 include('include\MYSQL\config.php');
 include('include\MYSQL\bibli_bdd.php');
 
-
-// Récupération des éléments du formulaire ajoutCursus
-
-$UV_Semestre_Numero[] = array();
-$UV_Semestre_Label[] = array();
-$UV_Sigle[] = array();
-$UV_Categorie[] = array();
-$UV_Affectation[] = array();
-$UV_inUTT[] = array();
-$UV_inProfil[] = array();
-$UV_Credit_Numero[] = array();
-$UV_Resultat[] = array();
-
 $compteur = $_POST['compteur'];
 $Etu_Numero = $_POST["numetu"];
 $Cursus_Nom = $_POST["nomcursus"];
@@ -32,8 +19,10 @@ if ($bd) {
         echo "Le cursus a ete enregistre, au tour des elements";
         // Récupération de l'id du cursus afin de créer les éléments de formation qui le composent
         $id_cursus=table_max_id($bd,'cursus','id');
-        for($i=0;$i<=$compteur;$i++){
-            echo "tamere";
+                 
+            foreach ($_POST['compteur'] as $i) {
+            // Récupération des éléments du formulaire ajoutCursus
+
             $UV_Semestre_Numero = $_POST['numsem'][$i];
             $UV_Semestre_Label = $_POST["labelsem"][$i];
             $UV_Sigle = $_POST["sigle"][$i];
@@ -44,8 +33,9 @@ if ($bd) {
             $UV_Credit_Numero = $_POST["numcredit"][$i];
             $UV_Resultat = $_POST["result"][$i];
             $request2="INSERT INTO `elt_de_formation`(`id`, `id_cursus`, `sem_seq`, `sem_label`, `sigle`, `categorie`, `affectation`, `inutt`, `inprofil`, `credit`, `resultat`)"
-                    . " values (NULL,'$id_cursus','$UV_Semestre_Numero','$UV_Semestre_Label','$UV_Sigle','"
-                    . "$UV_Categorie','$UV_Affectation','$UV_inUTT','$UV_inProfil','$UV_Credit_Numero','$UV_Resultat')";
+                    . " values (NULL,$id_cursus,$UV_Semestre_Numero,'$UV_Semestre_Label','$UV_Sigle','"
+                    . "$UV_Categorie','$UV_Affectation','$UV_inUTT','$UV_inProfil',$UV_Credit_Numero,'$UV_Resultat')";
+            echo $request2;
             if (!(execute_requete($bd,$request2))) {
                 echo "ERREUR: L'element de formation n'a été enregistré";
             }

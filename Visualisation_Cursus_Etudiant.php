@@ -21,6 +21,8 @@ if ($bd && isset($_POST['numetu'])) {
                     array_push($list_UV, [$data['sem_seq'],$data['sem_label'],$data['categorie'],$data['sigle'],$data['inutt'],$data['inprofil'],$data['credit'],$data['resultat']]) ;
                 }
             array_push($list_cursus, [$cursus['nom'],$list_UV]);
+            unset($list_UV);
+            $list_UV = [];
             }
             $bulats = "SELECT * INTO elt_de_formation where sigle=NPML and id_cursus=".$cursus['id']."";
             $tn09 = "SELECT * INTO elt_de_formation WHERE sigle=TN09 and id_cursus=".$cursus['id']."";

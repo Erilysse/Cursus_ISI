@@ -13,4 +13,5 @@ function ajouterUV(){
     copie.id= 'UV' + ++compteur;
     copie.style = "display : initial;";
     element.parentNode.appendChild(copie);
+    return(compteur);
 }
