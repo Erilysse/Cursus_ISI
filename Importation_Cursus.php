@@ -6,11 +6,14 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
+    <div id="bandeau">Importer un cursus</div>
     <div id="menu"><?php include('index.php'); ?></div>
     <?php
     require_once'BibliothequePHP.php';
     $IDetudiant=$_POST['numetu'];
     $nomCursus=$_POST['nomcursus'];
+    $fichier = $_FILES;
+    var_dump($fichier);
 //On vérifie qu'un fichier a été envoyé
 	if ($_FILES['cursus']['error'] > 0) { 
             $erreur = "Erreur durant le transfert de fichier";

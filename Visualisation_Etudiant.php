@@ -33,7 +33,7 @@ function affichageEtudiants($list_etudiant) {
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     <body>
-        <div id="bandeau"><a href='Ajout_Etudiant.php'>Ajouter un étudiant</a></div>
+        <div id="bandeau">Liste des étudiants</div>
         <div id="menu"><?php include('index.php'); ?></div>
         <h1>Liste des étudiants</h1>
         <?php  if (!empty($etudiants)) {?>

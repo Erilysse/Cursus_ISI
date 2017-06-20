@@ -11,12 +11,14 @@ include('BibliothequePHP.php');
 </head>
 <body>
     <script type="text/JavaScript" src="include\javascript\AjoutElement.js"></script>
+    <div id="bandeau">Ajouter un cursus</div>
     <div id="menu"><?php include('index.php'); ?></div>
-    <table>
+        <h1>Ajouter manuellement votre cursus</h1>
         <?php if (!isset($_POST['compteur'])) {?>
         <form method="POST" name='FormNbCursus' action="Ajout_Cursus.php">
             Combien d'UV voulez-vous ajouter ? : <input type='number' name='compteur' size='10' maxlength='10' value='' />
              <a href="Ajout_Cursus.php"><input type='submit' value='Envoyer' />
+                 <br><br>
         </form>
         <?php } else { $compteur = $_POST['compteur'] ?>
         <form method="POST" id='FormAjoutCursus' name='FormAjoutCursus' action="Ajout_Cursus_Action.php">
@@ -49,16 +51,16 @@ include('BibliothequePHP.php');
             <a href="Ajout_Cursus_Action.php"><input type='submit' value='Envoyer' />
             </a> <input type='reset' value='Réinitialiser' /></div>
         </form>  
-    <br><br>
         <?php } ?>
-    </table> 
-    <br><br>
+___________________________________________________________
+    <br><h1>Importer votre cursus</h1>
+        <fieldset>
         <form method="POST" id='FormAjoutCursus' name='FormAjoutCursus' action="Importation_Cursus.php">
         <div id='NumEtu'>Numéro de l'étudiant: <input type='number' name='numetu' id="numetu" size='10' maxlength='10' value='' /></div>    
         <div id='NomCursus'>Nom du Cursus: <input type='text' name='nomcursus' id="nomcursus" size='20' maxlength='20' value='' /></div>
         <br>
-        <fieldset>
-            <div id='Cursus'> Cursus (format csv) : <input type="file" name="cursus" id="cursus" /><br />
+             <input type="hidden" name="MAX_FILE_SIZE" value="30000" />
+             <div id='Cursus'> Cursus (format csv) : <input type="file" name="cursus" id="cursus" /></div>
         </fieldset>
         <div><a href="Importation_Cursus.php"><input type='submit' value='Envoyer' /></a></div>
         </form>

@@ -6,6 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
+    <div id="bandeau">Ajouter un étudiant</div>
     <div id="menu"><?php include('index.php'); ?></div>
 <?php
 // Ajout des fichiers pour la connexion à la bdd
