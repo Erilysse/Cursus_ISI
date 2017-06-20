@@ -41,15 +41,7 @@ function inputRadioDef($options, $name, $default) {
     $line = "";
     $tmp = "";
     foreach ($options as $value) {
-        if ($options === array("Oui", "Non")) {
-            if ($value == "Oui") {
-                $tmp = "1";
-            } else {
-                $tmp = "0";
-            }
-        } else {
-            $tmp = $value;
-        }
+        $tmp = $value;
         if ($tmp == $default) {
             $line .= "<input type='radio' checked='checked' name='$name' value='$tmp'>$value";
         } else {

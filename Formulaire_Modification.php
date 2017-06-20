@@ -16,7 +16,6 @@ if (!$bd) {
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
         </head>
         <body>
-            <script type="text/JavaScript" src="include\javascript\AjoutElement.js"></script>
             <div id="menu"><?php include('index.php'); ?></div>
             <table>
                 <?php
@@ -49,6 +48,7 @@ if (!$bd) {
                     <form method="POST" id='ModifCursus' name='ModifCursus' action="Formulaire_Modification_Action.php">
                         <input type="hidden" name="cursus" value="<?php echo $cursus; ?>" />
                         <?php
+                        $cpt=0;
                             foreach (execute_select_ss_view($bd, $req) as $temp) {
                                     foreach ($temp as $i) {
 
@@ -62,21 +62,19 @@ if (!$bd) {
                                                     <div>N° du Semestre : <input type='text' name='numsem[]' size='10' maxlength='10' value='<?php echo $req_res[0]['sem_seq']; ?>' /></div>
                                                     <div>Label du Semestre :<input type='text' name='labelsem[]' size='10' maxlength='10' value='<?php echo $req_res[0]['sem_label']; ?>' /></div>
                                                     <div>Sigle :<input type='text' name='sigle[]' size='5' maxlength='4' value='<?php echo $req_res[0]['sigle']; ?>' /></div>
-                                                    <div>Catégorie :<?php echo inputRadioDef($Categorie_Options, "categorie[]", $req_res[0]['categorie']); ?></div>
-                                                    <div>Affectation :<?php echo inputRadioDef($Affectation_Options, "affectation[]", $req_res[0]['affectation']); ?></div>
-                                                    <div>A-t-elle a été passé à l'UTT ?<?php echo inputRadioDef($Boolean_Options, "inUTT[]", $req_res[0]['inutt']); ?></div>
+                                                    <div>Catégorie :<?php echo inputRadioDef($Categorie_Options, "categorie".$cpt."", $req_res[0]['categorie']); ?></div>
+                                                    <div>Affectation :<?php echo inputRadioDef($Affectation_Options, "affectation".$cpt."", $req_res[0]['affectation']); ?></div>
+                                                    <div>A-t-elle a été passé à l'UTT ?<?php echo inputRadioDef($Boolean_Options, "inUTT".$cpt."", $req_res[0]['inutt']); ?></div>
                                                     <div>Correspond-t-elle a votre profil ?
-                                                        <?php echo inputRadioDef($Boolean_Options, "inProfil[]", $req_res[0]['inprofil']); ?></div>
+                                                        <?php echo inputRadioDef($Boolean_Options, "inProfil".$cpt."", $req_res[0]['inprofil']); ?></div>
                                                     <div>Nombre de crédit obtenu :<input type='number' name='numcredit[]' size='5' maxlength='4' value='<?php echo $req_res[0]['credit']; ?>' /></div>
-                                                    <div>Résultat à l'UV :<?php echo inputRadioDef($Resultat_Options, "result[]", $req_res[0]['resultat']); ?></div>
-                                                    <div>Action<?php echo inputRadioDef(array("Modification", "Suppression"), "action[]", "Modification"); ?></div>
+                                                    <div>Résultat à l'UV :<?php echo inputRadioDef($Resultat_Options, "result".$cpt."", $req_res[0]['resultat']); ?></div>
+                                                    <div>Action<?php echo inputRadioDef(array("Modification", "Suppression"), "action".$cpt."", "Modification"); ?></div>
                                                 </fieldset>
                                             </div>
-                                    <?php }
-                                }
-                                ?>
-                        <div><button type='button' value="Ajouter une UV" onClick= "ajouterUV();">Ajouter une UV</button></div>
-                        <div><a href="Visualisation_Cursus_All.php"><input type='submit' value='Envoyer' /></a></div>
+                                    <?php $cpt++; }
+                                }?>        
+                        <div><a href="Formulaire_Modification_Action.php"><input type='submit' value='Envoyer' /></a></div>
                         <div><input type='reset' value='Réinitialiser' /></div>
                     <?php } ?>
                 </form>       

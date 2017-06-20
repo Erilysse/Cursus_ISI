@@ -18,18 +18,18 @@ if ($bd && isset($_POST['numetu'])) {
             $answer2 = $bd->query($request2);
             if (!empty($answer2)) {
                 while ($data = $answer2->fetch()) {
-                    array_push($list_UV, [$data['sem_seq'],$data['sem_label'],$data['categorie'],$data['sigle'],$data['inutt'],$data['inprofil'],$data['credit'],$data['resultat']]) ;
+                    array_push($list_UV, [$data['sem_seq'],$data['sem_label'],$data['categorie'],$data['sigle'],$data['inutt'],$data['inprofil'],$data['resultat'],$data['credit']]) ;
                 }
             array_push($list_cursus, [$cursus['nom'],$list_UV]);
             unset($list_UV);
             $list_UV = [];
             }
-            $bulats = "SELECT * INTO elt_de_formation where sigle=NPML and id_cursus=".$cursus['id']."";
+        }
+    }
+    $bulats = "SELECT * INTO elt_de_formation where sigle=NPML and id_cursus=".$cursus['id']."";
             $tn09 = "SELECT * INTO elt_de_formation WHERE sigle=TN09 and id_cursus=".$cursus['id']."";
             $tn10 ="SELECT * INTO elt_de_formation WHERE sigle=TN10 and id_cursus=".$cursus['id']."";
             $tn30 ="SELECT * INTO elt_de_formation WHERE sigle=TN30 and id_cursus=".$cursus['id']."";
-        }
-    }
 }
 
 function affichageCursus($list_cursus,$bulats,$tn10,$tn30,$tn09,$bd) {
@@ -53,7 +53,7 @@ function affichageCursus($list_cursus,$bulats,$tn10,$tn30,$tn09,$bd) {
 }
 
 function analyseCursus($bulats,$tn10,$tn30,$tn09,$bd) {
-        echo "BULATS :";
+        echo "NPML :";
         if(execute_requete($bd,$bulats)) { 
             echo "OK";
         } else {
@@ -88,14 +88,14 @@ function analyseCursus($bulats,$tn10,$tn30,$tn09,$bd) {
         <h1>Vos cursus</h1>
     <?php if (isset($etu_numero)) {
     affichageCursus($list_cursus,$bulats,$tn10,$tn30,$tn09,$bd); ?>
-    <div>
+        <!-- <div>
         <form
             <input type="hidden" name="numetu" value="<?php if (isset($etu_numero)) { $etu_numero; } ?>">
             <a href="Formulaire_Modification.php"><input type='submit' value='Modifier le Cursus' /></a>
             <a href="Supprimer_Cursus.php"><input type='submit' value='Supprimer le Cursus' /></a>
             <a href="Dupliquer_Cursus.php"><input type='submit' value='Dupliquer le Cursus' /></a>
         </form>
-    </div>
+        </div> --> 
     <?php } ?>
 </body>
 </html>

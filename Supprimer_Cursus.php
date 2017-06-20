@@ -36,17 +36,21 @@ $bd = connect_bdd($serveur, $utilisateur, $mot_de_passe);
                 }
                 if (isset($_POST['numetu'], $_POST['cursus'])) {
                     if ($bd) {
-                        $id_cursus = $_POST['cursus'];
-                        $request_suppr_elt="DELETE * FROM `elt_de_formation` WHERE id_cursus = ".$id_cursus."";
+                        $etu = $_POST['numetu'];
+                        $nom_cursus = $_POST['cursus'];
+                        $req = "SELECT id FROM cursus WHERE id_etu=$etu and nom='$nom_cursus'";
+                        $answer = $bd->query($req);
+                        $data = $answer->fetch();
+                        $request_suppr_elt="DELETE FROM `elt_de_formation` WHERE `id_cursus`=".$data['id'].";";
                         if (!(execute_requete($bd,$request_suppr_elt))) {
                             echo "ERREUR: Les éléments de formations n'ont pas été supprimé";
                         }
-                        $request_suppr_cursus="DELETE * FROM `cursus` WHERE id = ".$id_cursus."";
+                        $request_suppr_cursus="DELETE FROM `cursus` WHERE `id`=".$data['id'].";";
                         if (!(execute_requete($bd,$request_suppr_cursus))) {
                             echo "ERREUR: Le cursus n'a pas été supprimé";
-                        }     
+                        }   
+                        }
                     }
-                }
                     ?>
                 </form>       
             </table>
