@@ -24,7 +24,7 @@
                     <option>?</option>
                 </select></div>
             </fieldset>
-            <div><a href="index.php"><input type='submit' value='Envoyer' /></a></div>
+            <div><a href="Ajout_Etudiant_Action.php"><input type='submit' value='Envoyer' /></a></div>
         <div><input type='reset' value='Réinitialiser' /></div
         </form>        
     </table>

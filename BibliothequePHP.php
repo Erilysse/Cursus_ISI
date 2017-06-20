@@ -5,6 +5,12 @@ $Affectation_Options = array("TC", "TCBR", "FCBR");
 $Boolean_Options = array("Oui", "Non");
 $Resultat_Options = array("A", "B", "C", "D", "E", "F", "FX", "ABS", "EQU", "ADM");
 
+function debug($array){
+	echo '<pre>';
+	print_r($array);
+	echo '</pre>';
+}
+
 function inputSelect($options, $name) {
     $line = "<select name='$name'>";
     $line .= "";

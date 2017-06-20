@@ -13,7 +13,7 @@ error_reporting(E_ALL);
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     <body>
-        <div id="bandeau">Accueil</div>
+        <div id="bandeau"><a href="index.php">Accueil</a></div>
         <div><a href="Visualisation_Cursus_Etudiant.php">Voir les cursus</a></div>
         <br>
         <div><a href="Visualisation_Etudiant.php">Voir les étudiants</a></div>

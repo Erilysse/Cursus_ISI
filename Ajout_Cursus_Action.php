@@ -5,13 +5,13 @@ include('include\MYSQL\config.php');
 include('include\MYSQL\bibli_bdd.php');
 
 $compteur = $_POST['compteur'];
-$Etu_Numero = $_POST["numetu"];
+$etu = $_POST["numetu"];
 $Cursus_Nom = $_POST["nomcursus"];
 
 $bd  = connect_bdd($serveur,$utilisateur,$mot_de_passe);
 if ($bd) {
     // Création du cursus d'après le numéro étu
-    $request1="INSERT INTO `cursus`(`id`, `id_etu`, `nom`) values (NULL,".$Etu_Numero.",'".$Cursus_Nom."')";
+    $request1="INSERT INTO `cursus`(`id`, `id_etu`, `nom`) values (NULL,".$etu.",'".$Cursus_Nom."')";
     if (!(execute_requete($bd,$request1))) {
         echo "ERREUR: Le cursus n'a pas été enregistré";
     }

@@ -28,78 +28,70 @@ else {
                     </form>
                     <?php 
                 } else if (isset($_POST['numetu']) && !isset($_POST['cursus'])) {
-                    $Etu_Numero = $_POST['numetu'];
-                    $reqCursus = "SELECT nom FROM cursus WHERE id_etu=$Etu_Numero";
+                    $etu = $_POST['numetu'];
+                    $reqCursus = "SELECT nom FROM cursus WHERE id_etu=$etu";
                 ?>
                     <form method="POST" id='ExportCursusNb' name='ExportCursusNb' action="Exportation_Cursus.php">
-                        <input type="hidden" name="numetu" value="<?php echo $_POST['numetu'];  ?>"
                         <div id='NumEtu'>Numéro de l'étudiant: <input type='number' name='numetu' size='10' maxlength='10' value='<?php echo $_POST['numetu'] ?>' /></div>
-                        <div id='Cursus'>Numéro cursus:<?php echo inputRadioReq($bd, $reqCursus, "cursus"); ?>
+                        <div id='Cursus'>Nom cursus:<?php echo inputRadioReq($bd, $reqCursus, "cursus"); ?>
                             <input type='submit' value='Envoyer' /></div>
                     </form>
                     <?php
                 }
                 if (isset($_POST['numetu'], $_POST['cursus'])) {
-                    $Etu_Numero=$_POST['numetu'];
+                    $etu=$_POST['numetu'];
                     $cursus = $_POST['cursus'];
-                    $etudiant="SELECT * from etudiant where num_etudiant = $Etu_Numero";
-                    if (!(execute_requete($bd,$etudiant))) {
+                    $request="SELECT * from etudiant where num_etudiant = $etu";
+                    $etudiants = execute_select_ss_view($bd,$request);
+                    if (!($etudiants)) {
                         echo "ERREUR: L'étudiant n'a pas pu être récupéré";
                     }
                     else{
                         echo "On a récupéré les données de l'étudiant";
-                        $etudiant_answer = $bd->query($etudiant);
-                        if (!empty($etudiant_answer)) {
-                            while ($data = $etudiant_answer->fetch()) {
-                                array_push($etudiant_attributes, [$data["num_etudiant"], $data["nom"], $data["prenom"], $data["admission"], $data["filiere"]]);
+                        $carac = $etudiants[0];
+                        // caractère afin de normaliser l'écriture
+                        $retourLigne = chr(13);
+                        //Ouverture fichier
+                        $fichierCursus = fopen('cursus.csv', 'a+');
+                        //Vide fichier
+                        ftruncate($fichierCursus,0);
+                        //Début écriture
+                        fputs($fichierCursus , "ID;");
+                        fputs($fichierCursus , $carac['num_etudiant']);
+                        fputs($fichierCursus , ";;;;;;;;$retourLigne");
+                        fputs($fichierCursus , "NO;");
+                        fputs($fichierCursus , $carac['nom']);
+                        fputs($fichierCursus , ";;;;;;;;$retourLigne");
+                        fputs($fichierCursus , "PR;");
+                        fputs($fichierCursus , $carac['prenom']);
+                        fputs($fichierCursus , ";;;;;;;;$retourLigne");
+                        fputs($fichierCursus , "AD;");
+                        fputs($fichierCursus , $carac['admission']);
+                        fputs($fichierCursus , ";;;;;;;;$retourLigne");
+                        fputs($fichierCursus , "FI;");
+                        fputs($fichierCursus , $carac['filiere']);
+                        fputs($fichierCursus , ";;;;;;;;$retourLigne");
+                        fputs($fichierCursus , "==;s_seq;s_label;sigle;categorie;affectation;utt;profil;credit;resultat$retourLigne");
+                        //ELT DE FORMATION
+                        $req = "SELECT id FROM cursus WHERE id_etu=".$carac['num_etudiant']." and nom='$cursus'";
+                        $data_r = execute_select_ss_view($bd,$req);
+                        $data_ro = $data_r[0];
+                        $request2 = "SELECT * FROM elt_de_formation WHERE id_cursus=".$data_ro['id']."";
+                        $data = execute_select_ss_view($bd,$request2);
+                        print_r($data);
+                            foreach ($data as $elt) {
+                                fputs($fichierCursus, "EL;$elt[sem_seq];$elt[sem_label];$elt[sigle];$elt[categorie];"
+                                    . "$elt[affectation];$elt[inutt];$elt[inprofil];$elt[credit];$elt[resultat]$retourLigne");
+                                echo " ";
                             }
-                $requestcursus = "SELECT id FROM cursus WHERE id_etu=$Etu_Numero and nom=$cursus";
-                $id = execute_select_ss_view($bd,$requestcursus);
-                //On affecte le caractère "retour à la ligne" pour avoir la même syntaxe que le fichier moodle
-                $retourLigne = chr(13);
-                //Ouverture du fichier
-                $fichierCursus = fopen('cursus.csv', 'a+');
-                //On vide le fichier cursus.csv
-                ftruncate($fichierCursus,0);
-                //Inscription des premières lignes
-                fputs($fichierCursus , "ID;");
-                fputs($fichierCursus , $etudiant_attributes[0]);
-                fputs($fichierCursus , ";;;;;;;;$retourLigne");
-                fputs($fichierCursus , "NO;");
-                fputs($fichierCursus , $etudiant_attributes[1]);
-                fputs($fichierCursus , ";;;;;;;;$retourLigne");
-                fputs($fichierCursus , "PR;");
-                fputs($fichierCursus , $etudiant_attributes[2]);
-                fputs($fichierCursus , ";;;;;;;;$retourLigne");
-                fputs($fichierCursus , "AD;");
-                fputs($fichierCursus , $etudiant_attributes[3]);
-                fputs($fichierCursus , ";;;;;;;;$retourLigne");
-                fputs($fichierCursus , "FI;");
-                fputs($fichierCursus , $etudiant_attributes[4]);
-                fputs($fichierCursus , ";;;;;;;;$retourLigne");
-                fputs($fichierCursus , "==;s_seq;s_label;sigle;categorie;affectation;utt;profil;credit;resultat$retourLigne");
-                //On inscrit tous les éléments de formations
-                               $request2 = "SELECT * FROM elt_de_formation WHERE id_cursus=$id";
-                $answer2 = $bd->query($request2);
-                if (!empty($answer2)) {
-                    while ($data = $answer2->fetch()) {
-                        fputs($fichierCursus, "EL;$data[sem_seq];$data[sem_seq];$data[sigle];$data[categorie];"
-                            . "$data[affectation];$data[inutt];$data[inprofil];$data[credit];$data[resultat]$retourLigne");
-                        echo " ";
+                        //Fin fichier
+                        fputs($fichierCursus, "END;;;;;;;;;$retourLigne");
+                        fputs($fichierCursus, "$retourLigne");
+                        fclose($fichierCursus);
+                        echo "<a href='cursus.csv' download='cursus' > Cliquer ici pour télécharger le fichier </a>";
                     }
                 }
-                //Fin du fichier csv
-                fputs($fichierCursus, "END;;;;;;;;;$retourLigne");
-                fputs($fichierCursus, "$retourLigne");
-                fputs($fichierCursus, "$retourLigne");
-                fputs($fichierCursus, "$retourLigne");
-                fclose($fichierCursus);
-                echo"<a href='cursus.csv' dowload='cursus' > Cliquer ici pour télécharger le fichier </a>";
-                }
-                                        }
-                    }
 }
-                ?>
-            </table>
+                        ?>
         </body>
  </html>

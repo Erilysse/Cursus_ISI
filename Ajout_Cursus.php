@@ -54,8 +54,8 @@ include('BibliothequePHP.php');
     </table> 
     <br><br>
         <form method="POST" id='FormAjoutCursus' name='FormAjoutCursus' action="Importation_Cursus.php">
-        <div id='NumEtu'>Numéro de l'étudiant: <input type='number' name='numetu' size='10' maxlength='10' value='' /></div>    
-        <div id='NomCursus'>Nom du Cursus: <input type='text' name='nomcursus' size='20' maxlength='20' value='' /></div>
+        <div id='NumEtu'>Numéro de l'étudiant: <input type='number' name='numetu' id="numetu" size='10' maxlength='10' value='' /></div>    
+        <div id='NomCursus'>Nom du Cursus: <input type='text' name='nomcursus' id="nomcursus" size='20' maxlength='20' value='' /></div>
         <br>
         <fieldset>
             <div id='Cursus'> Cursus (format csv) : <input type="file" name="cursus" id="cursus" /><br />
