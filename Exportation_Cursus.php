@@ -19,7 +19,6 @@ else {
         <body>
             <div id="bandeau">Exporter un cursus</div>
             <div id="menu"><?php include('index.php'); ?></div>
-            <table>
                 <?php
                 if (!isset($_POST['numetu']) && !isset($_POST['cursus'])) {
                     ?>
@@ -48,7 +47,7 @@ else {
                         echo "ERREUR: L'étudiant n'a pas pu être récupéré";
                     }
                     else{
-                        echo "On a récupéré les données de l'étudiant";
+                        echo "On a récupéré les données de l'étudiant<br><br>";
                         $carac = $etudiants[0];
                         // caractère afin de normaliser l'écriture
                         $retourLigne = chr(13);
@@ -79,7 +78,6 @@ else {
                         $data_ro = $data_r[0];
                         $request2 = "SELECT * FROM elt_de_formation WHERE id_cursus=".$data_ro['id']."";
                         $data = execute_select_ss_view($bd,$request2);
-                        print_r($data);
                             foreach ($data as $elt) {
                                 fputs($fichierCursus, "EL;$elt[sem_seq];$elt[sem_label];$elt[sigle];$elt[categorie];"
                                     . "$elt[affectation];$elt[inutt];$elt[inprofil];$elt[credit];$elt[resultat]$retourLigne");

@@ -33,7 +33,6 @@
 	foreach ($import as $ligne){
 		$tableau_valeurs[]=explode(";",$ligne);
 	}
-	debug($import);
 //On ajoute l'étudiant à la BDD si il n'est pas dedans
     $request_inorout = "SELECT * from etudiant where num_etudiant =".$tableau_valeurs[2][1]."";
     if (!execute_requete($bd,$request_inorout)) {

@@ -26,10 +26,10 @@ if ($bd && isset($_POST['numetu'])) {
             }
         }
     }
-    $bulats = "SELECT * INTO elt_de_formation where sigle=NPML and id_cursus=".$cursus['id']."";
-            $tn09 = "SELECT * INTO elt_de_formation WHERE sigle=TN09 and id_cursus=".$cursus['id']."";
-            $tn10 ="SELECT * INTO elt_de_formation WHERE sigle=TN10 and id_cursus=".$cursus['id']."";
-            $tn30 ="SELECT * INTO elt_de_formation WHERE sigle=TN30 and id_cursus=".$cursus['id']."";
+    $bulats = "SELECT * INTO elt_de_formation where categorie='NPML' and id_cursus=".$cursus['id']."";
+            $tn09 = "SELECT * INTO elt_de_formation WHERE sigle='TN09' and id_cursus=".$cursus['id']."";
+            $tn10 ="SELECT * INTO elt_de_formation WHERE sigle='TN10' and id_cursus=".$cursus['id']."";
+            $tn30 ="SELECT * INTO elt_de_formation WHERE sigle='TN30' and id_cursus=".$cursus['id']."";
 }
 
 function affichageCursus($list_cursus,$bulats,$tn10,$tn30,$tn09,$bd) {
